@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halil I. Helvaci — Applied Scientist</title>
+<meta name="description" content="Halil I. Helvaci — Applied Scientist at Amazon, Ph.D. in Electrical and Computer Engineering. Research in temporal modeling, computer vision, and active learning.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2311151C'/%3E%3Cpath d='M4 20 L10 20 L10 12 L16 12 L16 24 L22 24 L22 8 L28 8' stroke='%234FC7B8' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#11151C;
+    --panel:#171D26;
+    --panel-2:#1C2430;
+    --line:#2A3240;
+    --text:#E8EAEE;
+    --text-dim:#AEB6C2;
+    --text-mute:#7C8597;
+    --accent:#4FC7B8;
+    --accent-soft:rgba(79,199,184,0.14);
+    --seg-teal:#4FC7B8;
+    --seg-amber:#E3A857;
+    --seg-rose:#C97B84;
+    --seg-slate:#7C8CA6;
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --max: 820px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+
+  /* NAV */
+  header.site-nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(17,21,28,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:var(--max);margin:0 auto;
+  }
+  .nav-mark{
+    font-family:var(--serif);font-size:1.05rem;font-weight:500;
+    color:var(--text);letter-spacing:0.01em;
+  }
+  .nav-mark span{color:var(--accent);}
+  nav.links{display:flex;gap:24px;}
+  nav.links a{color:var(--text-dim);font-size:0.92rem;font-weight:500;}
+  nav.links a:hover{color:var(--text);text-decoration:none;}
+  .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--text);
+    width:38px;height:38px;border-radius:6px;cursor:pointer;}
+
+  @media (max-width:640px){
+    nav.links{
+      position:fixed;top:64px;left:0;right:0;
+      background:var(--panel);border-bottom:1px solid var(--line);
+      flex-direction:column;gap:0;padding:8px 0;
+      transform:translateY(-8px);opacity:0;pointer-events:none;
+      transition:opacity .18s ease, transform .18s ease;
+    }
+    nav.links.open{opacity:1;transform:translateY(0);pointer-events:auto;}
+    nav.links a{padding:12px 28px;border-top:1px solid var(--line);}
+    .nav-toggle{display:block;}
+  }
+
+  /* HERO */
+  .hero{padding:72px 0 48px;}
+  .eyebrow-loc{color:var(--text-mute);font-size:0.9rem;margin:0 0 14px;}
+  h1.name{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(2.3rem, 5vw, 3.4rem);
+    line-height:1.08;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  p.role{
+    font-size:clamp(1.05rem, 2.3vw, 1.3rem);
+    color:var(--text-dim);
+    margin:0 0 28px;
+    max-width:620px;
+  }
+  p.role strong{color:var(--text);font-weight:600;}
+
+  .hero-links{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:44px;}
+  .hero-links a{
+    font-size:0.92rem;color:var(--text-dim);font-weight:500;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .hero-links a:hover{color:var(--accent);text-decoration:none;}
+
+  /* SEGMENT BAR — the signature visual, reused in hero + experience */
+  .segbar{
+    display:flex;width:100%;height:14px;border-radius:7px;overflow:hidden;
+    background:var(--panel-2);
+    margin-bottom:10px;
+  }
+  .segbar .seg{height:100%;transform:scaleX(0);transform-origin:left;animation:grow 0.9s ease forwards;}
+  @keyframes grow{to{transform:scaleX(1);}}
+  .segbar-caption{
+    display:flex;justify-content:space-between;color:var(--text-mute);font-size:0.78rem;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .segbar .seg{animation:none;transform:scaleX(1);}
+  }
+
+  /* SECTIONS */
+  section{padding:56px 0;border-top:1px solid var(--line);}
+  section.hero{border-top:none;}
+  h2.section-title{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:1.5rem;
+    margin:0 0 28px;
+    color:var(--text);
+  }
+
+  .lede{color:var(--text-dim);max-width:640px;margin:0 0 20px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
+  @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
+  .comp-list, .skill-list{list-style:none;margin:0;padding:0;}
+  .comp-list li, .skill-list li{
+    display:inline-block;
+    font-size:0.86rem;color:var(--text-dim);
+    border:1px solid var(--line);border-radius:5px;
+    padding:5px 10px;margin:0 6px 8px 0;
+  }
+  h3.subhead{font-size:0.86rem;color:var(--text-mute);font-weight:600;margin:0 0 12px;
+    text-transform:none;letter-spacing:0.01em;}
+
+  /* EXPERIENCE TIMELINE */
+  .timeline{border-left:2px solid var(--line);padding-left:24px;margin-left:4px;}
+  .tl-item{position:relative;padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-30px;top:4px;width:10px;height:10px;border-radius:50%;
+    background:var(--dot,var(--accent));border:2px solid var(--ink);
+  }
+  .tl-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px;}
+  .tl-org{font-family:var(--serif);font-size:1.1rem;font-weight:500;color:var(--text);}
+  .tl-dates{font-size:0.82rem;color:var(--text-mute);white-space:nowrap;}
+  .tl-role{color:var(--accent);font-size:0.92rem;font-weight:500;margin:2px 0 10px;}
+  .tl-item ul{margin:0;padding-left:18px;color:var(--text-dim);font-size:0.94rem;}
+  .tl-item li{margin-bottom:6px;}
+  .tl-item li:last-child{margin-bottom:0;}
+  .tl-item li b, .tl-item li strong{color:var(--text);font-weight:600;}
+
+  /* RESEARCH HIGHLIGHTS */
+  .research-list{display:flex;flex-direction:column;gap:0;}
+  .research-item{padding:22px 0;border-top:1px solid var(--line);}
+  .research-item:first-child{border-top:none;padding-top:0;}
+  .research-item h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0 0 8px;color:var(--text);}
+  .research-item p{margin:0;color:var(--text-dim);font-size:0.95rem;}
+  .research-tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+  .research-tags span{font-size:0.76rem;color:var(--text-mute);border:1px solid var(--line);
+    border-radius:4px;padding:3px 8px;}
+
+  /* PUBLICATIONS */
+  .pub-list{list-style:none;margin:0;padding:0;}
+  .pub-item{padding:18px 0;border-top:1px solid var(--line);}
+  .pub-item:first-child{border-top:none;padding-top:0;}
+  .pub-num{color:var(--text-mute);font-size:0.82rem;margin-right:2px;}
+  .pub-title{font-weight:600;color:var(--text);font-size:0.98rem;}
+  .pub-meta{color:var(--text-dim);font-size:0.9rem;margin-top:4px;}
+  .pub-venue{color:var(--text-mute);}
+  .pub-item a.pub-link{font-size:0.85rem;margin-left:4px;}
+  .pub-you{color:var(--text);font-weight:600;}
+
+  .scholar-note{margin-top:20px;font-size:0.9rem;color:var(--text-mute);}
+
+  /* AWARDS */
+  .awards-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;}
+  .awards-list li{display:flex;gap:14px;align-items:baseline;font-size:0.95rem;}
+  .award-year{color:var(--accent);font-family:var(--serif);font-size:0.95rem;min-width:48px;}
+  .award-name{color:var(--text);font-weight:600;}
+  .award-sub{color:var(--text-mute);display:block;font-size:0.85rem;margin-top:2px;}
+
+  /* CONTACT / FOOTER */
+  footer{padding:60px 0 70px;}
+  footer h2.section-title{margin-bottom:14px;}
+  footer p.lede{margin-bottom:28px;}
+  .contact-links{display:flex;flex-wrap:wrap;gap:14px 28px;}
+  .contact-links a{
+    font-size:0.98rem;color:var(--text);font-weight:500;
+    border-bottom:1px solid var(--line);padding-bottom:3px;
+  }
+  .contact-links a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none;}
+  .foot-note{margin-top:48px;color:var(--text-mute);font-size:0.82rem;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <div class="nav-mark">Halil<span>.</span>Helvaci</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="top">
+    <p class="eyebrow-loc">Greater Seattle Area, WA</p>
+    <h1 class="name">Halil I. Helvaci</h1>
+    <p class="role">
+      <strong>Applied Scientist at Amazon</strong> with a Ph.D. in Electrical &amp; Computer Engineering.
+      I build ML systems across vision, language, and structured data — from research prototypes
+      to production pipelines serving billions of records.
+    </p>
+
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/halilhelvaci/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://scholar.google.com/citations?user=kbd1oUcAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+    </div>
+
+    <div class="segbar" aria-hidden="true">
+      <div class="seg" style="width:8%;background:var(--seg-slate);animation-delay:0s"></div>
+      <div class="seg" style="width:30%;background:var(--seg-amber);animation-delay:.05s"></div>
+      <div class="seg" style="width:47%;background:var(--seg-teal);animation-delay:.1s"></div>
+      <div class="seg" style="width:15%;background:var(--seg-rose);animation-delay:.15s"></div>
+    </div>
+    <div class="segbar-caption">
+      <span>2017 — B.S. Electrical Engineering</span>
+      <span>2026 — Applied Scientist, Amazon</span>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div>
+        <p class="lede">
+          Five-plus years building machine learning systems spanning computer vision, NLP, and
+          structured data. My research centers on temporal modeling — teaching models to find
+          precise structure in continuous signals, whether that's segmenting fine-grained actions
+          in rehabilitation video or ranking risk across production logistics data at scale.
+          I'm experienced end-to-end: from novel model architectures to deployed pipelines on AWS.
+        </p>
+      </div>
+      <div>
+        <h3 class="subhead">Core competencies</h3>
+        <ul class="comp-list">
+          <li>Transformers</li><li>Temporal Modeling</li><li>Computer Vision</li>
+          <li>Active Learning</li><li>Multi-modal Learning</li><li>LLMs</li><li>Generative Models</li>
+        </ul>
+        <h3 class="subhead" style="margin-top:20px;">Tools</h3>
+        <ul class="skill-list">
+          <li>Python</li><li>PyTorch</li><li>AWS (SageMaker, Bedrock, EC2, S3)</li>
+          <li>Docker</li><li>Git</li><li>Linux</li><li>SQL</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+
+      <div class="tl-item" style="--dot:var(--seg-teal)">
+        <div class="tl-row">
+          <span class="tl-org">Amazon</span>
+          <span class="tl-dates">Jul 2026 — Present</span>
+        </div>
+        <div class="tl-role">Applied Scientist · Bellevue, WA</div>
+        <ul>
+          <li>Implemented the Signal Expansion Automation Kit (SEAK), reducing Applied Scientist time spent on market expansion by <b>50–60%</b> across high-scale production signals.</li>
+          <li>Expanded Amazon's Speed production signals to worldwide markets (UK, EU, CA) to enable sub-same-day shipping globally.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot:var(--seg-amber)">
+        <div class="tl-row">
+          <span class="tl-org">University of Kentucky</span>
+          <span class="tl-dates">Jun 2022 — Jul 2026</span>
+        </div>
+        <div class="tl-role">Graduate Research Assistant · Lexington, KY</div>
+        <ul>
+          <li>Developed Multi Membership Temporal Attention (MMTA), an attention operator tackling the temporal granularity bottleneck in action segmentation, reaching state-of-the-art Edit Scores of <b>71.1%</b> (StrokeRehab) and <b>88.4%</b> (50Salads).</li>
+          <li>Introduced a boundary-centric active learning framework (B-ACT), with <b>99.5%</b> reduced annotation costs via uncertainty-guided clip selection targeting ambiguous action transitions on GTEA, Breakfast, and 50Salads.</li>
+          <li>Developed HRTR, a single-stage transformer for sub-second action segmentation, improving prior benchmarks by up to <b>3.3%</b>.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot:var(--seg-teal)">
+        <div class="tl-row">
+          <span class="tl-org">Amazon</span>
+          <span class="tl-dates">Jul 2025 — Oct 2025</span>
+        </div>
+        <div class="tl-role">Applied Scientist Intern · Seattle, WA</div>
+        <ul>
+          <li>Delivered TRP-Apple, an end-to-end ML framework preventing first-mile theft by ranking high-risk SKUs and vulnerable routes — <b>~60% faster</b> mitigation, <b>~50% less</b> manual review.</li>
+          <li>Built a two-stage ranking system (Gradient Boosting + RoBERTa) reaching <b>94%/93%</b> precision/recall on existing inventory, <b>82%/85%</b> on cold-start products, <b>93%/93%</b> on route risk, with a <b>65%</b> reduction in false positives.</li>
+          <li>Automated ground-truth labeling via AWS Bedrock (Nova Lite), removing annotation bottlenecks and enabling scalable training across <b>5M+</b> records.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot:var(--seg-rose)">
+        <div class="tl-row">
+          <span class="tl-org">KLA</span>
+          <span class="tl-dates">May 2024 — Aug 2024</span>
+        </div>
+        <div class="tl-role">Algorithm Engineer Intern · Ann Arbor, MI</div>
+        <ul>
+          <li>Developed a conditional GAN framework for class-balanced synthetic data generation, improving defect detection rate by <b>12%</b> over the production baseline in e-beam wafer inspection.</li>
+          <li>Automated defect classification workflows via a MySQL database integration, eliminating manual data entry from the training pipeline.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot:var(--seg-rose)">
+        <div class="tl-row">
+          <span class="tl-org">KLA</span>
+          <span class="tl-dates">May 2023 — Aug 2023</span>
+        </div>
+        <div class="tl-role">Algorithm Engineer Intern · Ann Arbor, MI</div>
+        <ul>
+          <li>Developed a semi-supervised image retrieval model for defect root-cause analysis, reaching <b>98% top-1 accuracy</b> identifying morphologically similar defects across classification boundaries.</li>
+          <li>Accelerated training pipeline throughput by <b>30%</b> via a generator-based data loader on 4TB+ semiconductor image datasets.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot:var(--seg-slate)">
+        <div class="tl-row">
+          <span class="tl-org">University of Kentucky</span>
+          <span class="tl-dates">Jan 2020 — Jun 2022</span>
+        </div>
+        <div class="tl-role">Graduate Teaching Assistant · Lexington, KY</div>
+        <ul>
+          <li>Mentored <b>300+</b> undergraduate students across cybersecurity, electric circuits, and senior capstone design courses through office hours, grading, and project coaching.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="education">
+    <h2 class="section-title">Education</h2>
+    <div class="research-list">
+      <div class="research-item">
+        <h3>Ph.D., Electrical &amp; Computer Engineering</h3>
+        <p>University of Kentucky · Jan 2020 – Aug 2026</p>
+      </div>
+      <div class="research-item">
+        <h3>B.S., Electrical Engineering, Minor in Mathematics</h3>
+        <p>University of Kentucky · Aug 2013 – May 2017</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2 class="section-title">Research highlights</h2>
+    <div class="research-list">
+
+      <div class="research-item">
+        <h3>MMTA — Multi Membership Temporal Attention</h3>
+        <p>An attention operator designed to tackle the temporal granularity bottleneck in fine-grained action segmentation, applied to stroke rehabilitation assessment.</p>
+        <div class="research-tags"><span>Temporal Attention</span><span>Action Segmentation</span><span>Healthcare</span></div>
+      </div>
+
+      <div class="research-item">
+        <h3>B-ACT — Boundary-Centric Active Learning</h3>
+        <p>An uncertainty-guided active learning framework targeting ambiguous action transitions, cutting annotation costs by 99.5% on temporal segmentation benchmarks.</p>
+        <div class="research-tags"><span>Active Learning</span><span>Annotation Efficiency</span></div>
+      </div>
+
+      <div class="research-item">
+        <h3>HRTR — Single-Stage Transformer for Sub-Second Segmentation</h3>
+        <p>A single-stage transformer architecture for fine-grained, sub-second action segmentation in stroke rehabilitation video.</p>
+        <div class="research-tags"><span>Transformers</span><span>Video Understanding</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2 class="section-title">Selected publications</h2>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-num">01</span>
+        <span class="pub-title"><span class="pub-you">Halil I. Helvaci</span>, Justin P. Huber, Jihye Bae, S-C. Cheung</span>
+        <div class="pub-meta">"MMTA: Multi Membership Temporal Attention for Fine-Grained Stroke Rehabilitation Assessment." <span class="pub-venue">arXiv preprint arXiv:2603.00878, 2026.</span>
+          <a class="pub-link" href="https://arxiv.org/abs/2603.00878" target="_blank" rel="noopener">View →</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">02</span>
+        <span class="pub-title"><span class="pub-you">Halil I. Helvaci</span>, S-C. Cheung</span>
+        <div class="pub-meta">"Boundary-Centric Active Learning for Temporal Action Segmentation." <span class="pub-venue">arXiv preprint arXiv:2604.15173, 2026.</span>
+          <a class="pub-link" href="https://arxiv.org/abs/2604.15173" target="_blank" rel="noopener">View →</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">03</span>
+        <span class="pub-title"><span class="pub-you">Halil I. Helvaci</span>, Justin P. Huber, Jihye Bae, S-C. Cheung</span>
+        <div class="pub-meta">"HRTR: A Single-Stage Transformer for Fine-Grained Sub-Second Action Segmentation in Stroke Rehabilitation." <span class="pub-venue">arXiv preprint arXiv:2506.02472, 2025.</span>
+          <a class="pub-link" href="https://arxiv.org/abs/2506.02472" target="_blank" rel="noopener">View →</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">04</span>
+        <span class="pub-title"><span class="pub-you">Halil I. Helvaci</span>, S-C. Cheung, C-N. Chuah, S. Ozonoff</span>
+        <div class="pub-meta">"Localizing Moments of Actions in Untrimmed Videos of Infants with Autism Spectrum Disorder." <span class="pub-venue">IEEE International Conference on Image Processing (ICIP), 2024.</span></div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">05</span>
+        <span class="pub-title">S. Liaqat, <span class="pub-you">Halil I. Helvaci</span>, Dongjie Chen, Chongruo Wu, Sally Ozonoff, Chen-Nee Chuah, S-C. Cheung</span>
+        <div class="pub-meta">"ASD-FEAT — A Multi-Modal Infant Video Dataset for Early ASD Risk Prediction." <span class="pub-venue">Journal of Data-centric Machine Learning Research (DMLR), 2026.</span></div>
+      </li>
+
+    </ul>
+    <p class="scholar-note">Full publication list on <a href="https://scholar.google.com/citations?user=kbd1oUcAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p>
+  </section>
+
+  <section id="awards">
+    <h2 class="section-title">Awards &amp; achievements</h2>
+    <ul class="awards-list">
+      <li>
+        <span class="award-year">2025</span>
+        <span><span class="award-name">Best PhD Poster Award</span><span class="award-sub">University of Kentucky ECE Spring Research Symposium</span></span>
+      </li>
+      <li>
+        <span class="award-year">2019</span>
+        <span><span class="award-name">Vodafone Leaders of the Future Program (Europe)</span><span class="award-sub">Selected as 1 of 23 candidates from 70,000+ applicants</span></span>
+      </li>
+      <li>
+        <span class="award-year">2013–17</span>
+        <span><span class="award-name">International Student Ambassador Scholarship</span><span class="award-sub">University of Kentucky</span></span>
+      </li>
+      <li>
+        <span class="award-year">2013–17</span>
+        <span><span class="award-name">William C. Parker Diversity Scholarship</span><span class="award-sub">University of Kentucky</span></span>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="wrap" id="contact">
+  <h2 class="section-title">Get in touch</h2>
+  <p class="lede">I'm always happy to talk research, collaboration, or opportunities in applied ML.</p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/halilhelvaci/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://scholar.google.com/citations?user=kbd1oUcAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+  </div>
+  <p class="foot-note">© 2026 Halil I. Helvaci.</p>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+
+</body>
+</html>
