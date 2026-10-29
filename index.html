@@ -106,9 +106,7 @@
   }
   .nav-mark span{color:var(--accent);}
   .nav-mascot{
-    width:28px;height:28px;object-fit:contain;
-    border-radius:50%;background:var(--accent-soft);
-    padding:6px;
+    width:30px;height:30px;object-fit:contain;
   }
   nav.links{display:flex;gap:24px;}
   nav.links a{color:var(--text-dim);font-size:0.92rem;font-weight:500;}
@@ -179,18 +177,12 @@
   }
 
   .segbar-caption{
-    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    display:flex;justify-content:space-between;align-items:center;
     color:var(--text-mute);font-size:0.78rem;
   }
-  .cap-start{justify-self:start;}
-  .cap-direction{justify-self:center;white-space:nowrap;}
   .cap-now{
-    justify-self:end;display:flex;align-items:center;gap:6px;
+    display:flex;align-items:center;gap:6px;
     color:var(--text-dim);font-weight:500;white-space:nowrap;
-  }
-  @media (max-width:480px){
-    .segbar-caption{grid-template-columns:1fr;row-gap:6px;text-align:center;}
-    .cap-start, .cap-now{justify-self:center;}
   }
   .seg-link{
     position:relative;height:100%;display:block;flex:0 0 auto;min-width:16px;
@@ -392,7 +384,6 @@
     </nav>
     <div class="segbar-caption">
       <span class="cap-start">2020</span>
-      <span class="cap-direction" aria-hidden="true">Earlier <span class="seg-arrow">→</span> More recent</span>
       <span class="cap-now" aria-hidden="true"><span class="now-dot"></span>Now</span>
     </div>
   </section>
