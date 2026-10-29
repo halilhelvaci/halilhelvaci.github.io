@@ -181,6 +181,12 @@
   /* ABOUT */
   .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
   @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
+  .about-photo{
+    width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 30%;
+    border-radius:10px;border:1px solid var(--line);
+    margin-bottom:18px;display:block;
+  }
+  .about-photo-cap{color:var(--text-mute);font-size:0.8rem;margin:0 0 20px;}
   .comp-list, .skill-list{list-style:none;margin:0;padding:0;}
   .comp-list li, .skill-list li{
     display:inline-block;
@@ -308,6 +314,8 @@
         </p>
       </div>
       <div>
+        <img class="about-photo" src="hb.jpg" alt="Halil with his dog Bulut at Mount Rushmore National Memorial">
+        <p class="about-photo-cap">With Bulut at Mount Rushmore.</p>
         <h3 class="subhead">Core competencies</h3>
         <ul class="comp-list">
           <li>Transformers</li><li>Temporal Modeling</li><li>Computer Vision</li>
