@@ -182,11 +182,12 @@
   .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
   @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
   .about-photo{
-    width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 30%;
+    width:100%;aspect-ratio:16/7;object-fit:cover;object-position:50% 32%;
     border-radius:10px;border:1px solid var(--line);
-    margin-bottom:18px;display:block;
+    display:block;
   }
-  .about-photo-cap{color:var(--text-mute);font-size:0.8rem;margin:0 0 20px;}
+  .about-photo-cap{color:var(--text-mute);font-size:0.8rem;margin:10px 0 36px;}
+  @media (max-width:600px){.about-photo{aspect-ratio:4/3;}}
   .comp-list, .skill-list{list-style:none;margin:0;padding:0;}
   .comp-list li, .skill-list li{
     display:inline-block;
@@ -303,6 +304,9 @@
 
   <section id="about">
     <h2 class="section-title">About</h2>
+    <img class="about-photo" src="halil-and-bulut.jpg" alt="Halil with his dog Bulut at Mount Rushmore National Memorial">
+    <p class="about-photo-cap">With Bulut at Mount Rushmore.</p>
+
     <div class="about-grid">
       <div>
         <p class="lede">
@@ -314,8 +318,6 @@
         </p>
       </div>
       <div>
-        <img class="about-photo" src="hb.jpg" alt="Halil with his dog Bulut at Mount Rushmore National Memorial">
-        <p class="about-photo-cap">With Bulut at Mount Rushmore.</p>
         <h3 class="subhead">Core competencies</h3>
         <ul class="comp-list">
           <li>Transformers</li><li>Temporal Modeling</li><li>Computer Vision</li>
