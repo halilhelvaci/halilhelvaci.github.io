@@ -96,8 +96,11 @@
     border-bottom:1px solid var(--line);
   }
   .nav-row{
-    display:flex;align-items:center;justify-content:flex-end;
+    display:flex;align-items:center;justify-content:space-between;
     padding:16px 28px;max-width:var(--max);margin:0 auto;
+  }
+  .nav-mascot{
+    width:30px;height:30px;object-fit:contain;
   }
   nav.links{display:flex;gap:24px;}
   nav.links a{color:var(--text-dim);font-size:0.92rem;font-weight:500;}
@@ -328,6 +331,7 @@
 
 <header class="site-nav">
   <div class="nav-row">
+    <img src="bulut-mark.png" alt="Bulut" class="nav-mascot">
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     <nav class="links" id="navLinks">
       <a href="#about">About</a>
