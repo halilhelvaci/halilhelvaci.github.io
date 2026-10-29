@@ -176,6 +176,53 @@
     .now-dot{animation:none;}
   }
 
+  /* Bulut runs across the top of the timeline once on page load, arriving
+     at the "Now" end just as the bar finishes growing in. A paw-print trail
+     fades in behind him, and clicking/activating him replays the whole run. */
+  .segbar-wrap{position:relative;}
+  .bulut-runner{
+    position:absolute;top:-27px;left:-6%;
+    width:34px;height:34px;padding:0;border:none;background:none;
+    cursor:pointer;z-index:5;
+    opacity:0;
+    filter:drop-shadow(0 3px 5px rgba(0,0,0,0.45));
+    animation:bulut-run 2.3s ease-in-out 1.05s 1 both;
+  }
+  .bulut-runner:focus-visible{outline:2px solid var(--text);outline-offset:3px;border-radius:50%;}
+  .bulut-runner-img{width:100%;height:100%;object-fit:contain;display:block;}
+  @keyframes bulut-run{
+    0%  {left:-6%;  opacity:0; transform:translateY(0) rotate(0deg);}
+    4%  {opacity:1;}
+    12% {transform:translateY(-7px) rotate(-4deg);}
+    24% {transform:translateY(0) rotate(4deg);}
+    36% {transform:translateY(-7px) rotate(-4deg);}
+    48% {transform:translateY(0) rotate(4deg);}
+    60% {left:60%; transform:translateY(-7px) rotate(-4deg);}
+    72% {transform:translateY(0) rotate(4deg);}
+    84% {transform:translateY(-5px) rotate(-2deg);}
+    94% {left:93%; transform:translateY(0) rotate(0deg);}
+    100%{left:94%; opacity:1; transform:translateY(0) rotate(0deg);}
+  }
+
+  .paw-print{
+    position:absolute;top:-3px;color:var(--seg-teal);
+    pointer-events:none;opacity:0;
+    animation:paw-fade 0.7s ease-out both;
+  }
+  @keyframes paw-fade{
+    0%{opacity:0;transform:scale(0.5) translateY(2px);}
+    35%{opacity:0.6;transform:scale(1) translateY(0);}
+    100%{opacity:0;transform:scale(0.85) translateY(-2px);}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .bulut-runner{animation:none;left:94%;opacity:1;transform:none;}
+    .paw-print{animation:none;opacity:0;}
+  }
+  @media (max-width:480px){
+    .bulut-runner{width:26px;height:26px;top:-22px;}
+  }
+
   .segbar-caption{
     display:flex;justify-content:space-between;align-items:center;
     color:var(--text-mute);font-size:0.78rem;
@@ -362,6 +409,15 @@
       <a href="https://scholar.google.com/citations?user=ns2d-ZgAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
     </div>
 
+    <div class="segbar-wrap">
+    <button type="button" id="bulutRunner" class="bulut-runner" aria-label="Replay Bulut running across the timeline">
+      <img src="bulut-mark.png" alt="" class="bulut-runner-img">
+    </button>
+    <span class="paw-print" style="left:8%;animation-delay:1.37s"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="8" r="2.2"/><circle cx="10" cy="4" r="2.2"/><circle cx="15" cy="4" r="2.2"/><circle cx="19" cy="8" r="2.2"/></svg></span>
+    <span class="paw-print" style="left:26%;animation-delay:1.79s"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="8" r="2.2"/><circle cx="10" cy="4" r="2.2"/><circle cx="15" cy="4" r="2.2"/><circle cx="19" cy="8" r="2.2"/></svg></span>
+    <span class="paw-print" style="left:44%;animation-delay:2.20s"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="8" r="2.2"/><circle cx="10" cy="4" r="2.2"/><circle cx="15" cy="4" r="2.2"/><circle cx="19" cy="8" r="2.2"/></svg></span>
+    <span class="paw-print" style="left:62%;animation-delay:2.61s"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="8" r="2.2"/><circle cx="10" cy="4" r="2.2"/><circle cx="15" cy="4" r="2.2"/><circle cx="19" cy="8" r="2.2"/></svg></span>
+    <span class="paw-print" style="left:80%;animation-delay:3.03s"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="8" r="2.2"/><circle cx="10" cy="4" r="2.2"/><circle cx="15" cy="4" r="2.2"/><circle cx="19" cy="8" r="2.2"/></svg></span>
     <nav class="segbar" aria-label="Career timeline, oldest to most recent, jump to an entry">
       <a href="#exp-ta" class="seg-link" style="width:32%;background:var(--seg-slate);opacity:.72;animation-delay:0s">
         <span class="seg-tooltip"><span class="tt-role">Graduate Teaching Assistant</span><span class="tt-dates">University of Kentucky · Jan 2020–Jun 2022</span></span>
@@ -382,6 +438,7 @@
         <span class="seg-tooltip"><span class="tt-role">Applied Scientist</span><span class="tt-dates">Amazon · Jul 2026–Present</span></span>
       </a>
     </nav>
+    </div>
     <div class="segbar-caption">
       <span class="cap-start">2020</span>
       <span class="cap-now" aria-hidden="true"><span class="now-dot"></span>Now</span>
@@ -626,6 +683,20 @@
     links.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
   }));
+
+  // Replay Bulut's run across the timeline (and his paw-print trail) on click/activation
+  const bulutRunner = document.getElementById('bulutRunner');
+  const pawPrints = document.querySelectorAll('.paw-print');
+  if (bulutRunner) {
+    bulutRunner.addEventListener('click', () => {
+      bulutRunner.style.animation = 'none';
+      pawPrints.forEach(p => { p.style.animation = 'none'; });
+      // force reflow so the browser registers the reset before reapplying
+      void bulutRunner.offsetWidth;
+      bulutRunner.style.animation = '';
+      pawPrints.forEach(p => { void p.offsetWidth; p.style.animation = ''; });
+    });
+  }
 </script>
 
 </body>
