@@ -102,8 +102,14 @@
   .nav-mark{
     font-family:var(--serif);font-size:1.05rem;font-weight:500;
     color:var(--text);letter-spacing:0.01em;
+    display:flex;align-items:center;gap:9px;
   }
   .nav-mark span{color:var(--accent);}
+  .nav-mascot{
+    width:26px;height:26px;object-fit:contain;
+    border-radius:50%;background:var(--accent-soft);
+    padding:3px;
+  }
   nav.links{display:flex;gap:24px;}
   nav.links a{color:var(--text-dim);font-size:0.92rem;font-weight:500;}
   nav.links a:hover{color:var(--text);text-decoration:none;}
@@ -149,20 +155,83 @@
   }
   .hero-links a:hover{color:var(--accent);text-decoration:none;}
 
-  /* SEGMENT BAR - the signature visual, reused in hero + experience */
+  /* SEGMENT BAR - the signature visual, reused in hero + experience. Each segment
+     is a link into the matching Experience entry, with a hover/focus tooltip.
+     Ordered oldest (left) to most recent (right); opacity rises left-to-right
+     and a pulsing "Now" marker caps the end to make the direction unambiguous. */
   .segbar{
-    display:flex;width:100%;height:14px;border-radius:7px;overflow:hidden;
-    background:var(--panel-2);
-    margin-bottom:10px;
+    display:flex;width:100%;height:18px;border-radius:9px;overflow:visible;
+    background:var(--panel-2);margin-bottom:10px;
   }
-  .segbar .seg{height:100%;transform:scaleX(0);transform-origin:left;animation:grow 0.9s ease forwards;}
-  @keyframes grow{to{transform:scaleX(1);}}
-  .segbar-caption{
-    display:flex;justify-content:space-between;color:var(--text-mute);font-size:0.78rem;
+  .now-dot{
+    width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(79,199,184,0.6);
+    animation:pulse-dot 2s ease-out infinite;
+  }
+  @keyframes pulse-dot{
+    0%{box-shadow:0 0 0 0 rgba(79,199,184,0.55);}
+    70%{box-shadow:0 0 0 7px rgba(79,199,184,0);}
+    100%{box-shadow:0 0 0 0 rgba(79,199,184,0);}
+  }
+  .seg-arrow{color:var(--accent);}
+  @media (prefers-reduced-motion:reduce){
+    .now-dot{animation:none;}
   }
 
+  .segbar-caption{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    color:var(--text-mute);font-size:0.78rem;
+  }
+  .cap-start{justify-self:start;}
+  .cap-direction{justify-self:center;white-space:nowrap;}
+  .cap-now{
+    justify-self:end;display:flex;align-items:center;gap:6px;
+    color:var(--text-dim);font-weight:500;white-space:nowrap;
+  }
+  @media (max-width:480px){
+    .segbar-caption{grid-template-columns:1fr;row-gap:6px;text-align:center;}
+    .cap-start, .cap-now{justify-self:center;}
+  }
+  .seg-link{
+    position:relative;height:100%;display:block;flex:0 0 auto;min-width:16px;
+    transform:scaleX(0);transform-origin:left;animation:grow 0.9s ease forwards;
+    cursor:pointer;transition:filter .15s ease;
+    border-right:2px solid var(--ink);
+  }
+  .seg-link:first-child{border-top-left-radius:9px;border-bottom-left-radius:9px;}
+  .seg-link:last-child{border-top-right-radius:9px;border-bottom-right-radius:9px;border-right:none;}
+  .seg-link:hover, .seg-link:focus-visible{filter:brightness(1.25);}
+  .seg-link:focus-visible{outline:2px solid var(--text);outline-offset:2px;}
+
+  .seg-tooltip{
+    position:absolute;bottom:calc(100% + 10px);left:50%;
+    transform:translateX(-50%) translateY(4px);
+    background:var(--panel-2);border:1px solid var(--line);border-radius:7px;
+    padding:9px 12px;font-size:0.78rem;white-space:nowrap;
+    opacity:0;pointer-events:none;transition:opacity .15s ease, transform .15s ease;
+    box-shadow:0 10px 26px rgba(0,0,0,0.4);z-index:20;
+  }
+  .seg-tooltip::after{
+    content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    border:5px solid transparent;border-top-color:var(--panel-2);
+  }
+  .seg-link:hover .seg-tooltip, .seg-link:focus-visible .seg-tooltip{
+    opacity:1;transform:translateX(-50%) translateY(0);
+  }
+  .seg-link:first-child .seg-tooltip{left:0;transform:translateX(0) translateY(4px);}
+  .seg-link:first-child:hover .seg-tooltip, .seg-link:first-child:focus-visible .seg-tooltip{transform:translateX(0) translateY(0);}
+  .seg-link:last-child .seg-tooltip{left:auto;right:0;transform:translateX(0) translateY(4px);}
+  .seg-link:last-child:hover .seg-tooltip, .seg-link:last-child:focus-visible .seg-tooltip{transform:translateX(0) translateY(0);}
+  .tt-role{display:block;font-weight:600;color:var(--text);}
+  .tt-dates{display:block;color:var(--text-mute);font-size:0.72rem;margin-top:2px;}
+
+  @keyframes grow{to{transform:scaleX(1);}}
+
   @media (prefers-reduced-motion:reduce){
-    .segbar .seg{animation:none;transform:scaleX(1);}
+    .seg-link{animation:none;transform:scaleX(1);}
+  }
+  @media (max-width:560px){
+    .seg-tooltip{white-space:normal;max-width:180px;}
   }
 
   /* SECTIONS */
@@ -182,12 +251,12 @@
   .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
   @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
   .about-photo{
-    width:100%;aspect-ratio:16/7;object-fit:cover;object-position:50% 32%;
+    width:100%;aspect-ratio:7/4;object-fit:cover;object-position:50% 44%;
     border-radius:10px;border:1px solid var(--line);
     display:block;
   }
   .about-photo-cap{color:var(--text-mute);font-size:0.8rem;margin:10px 0 36px;}
-  @media (max-width:600px){.about-photo{aspect-ratio:4/3;}}
+  @media (max-width:600px){.about-photo{aspect-ratio:4/3;object-position:50% 40%;}}
   .comp-list, .skill-list{list-style:none;margin:0;padding:0;}
   .comp-list li, .skill-list li{
     display:inline-block;
@@ -200,7 +269,14 @@
 
   /* EXPERIENCE TIMELINE */
   .timeline{border-left:2px solid var(--line);padding-left:24px;margin-left:4px;}
-  .tl-item{position:relative;padding-bottom:34px;}
+  .tl-item{position:relative;padding-bottom:34px;scroll-margin-top:90px;}
+  .tl-item:target .tl-org{animation:flash-highlight 1.6s ease;}
+  @keyframes flash-highlight{
+    0%{color:var(--accent);} 100%{color:var(--text);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .tl-item:target .tl-org{animation:none;}
+  }
   .tl-item:last-child{padding-bottom:0;}
   .tl-item::before{
     content:"";position:absolute;left:-30px;top:4px;width:10px;height:10px;border-radius:50%;
@@ -255,14 +331,18 @@
     border-bottom:1px solid var(--line);padding-bottom:3px;
   }
   .contact-links a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none;}
-  .foot-note{margin-top:48px;color:var(--text-mute);font-size:0.82rem;}
+  .foot-note{
+    margin-top:48px;color:var(--text-mute);font-size:0.82rem;
+    display:flex;align-items:center;gap:8px;
+  }
+  .foot-paw{width:22px;height:22px;object-fit:contain;opacity:0.9;}
 </style>
 </head>
 <body>
 
 <header class="site-nav">
   <div class="nav-row">
-    <div class="nav-mark">Halil<span>.</span>Helvaci</div>
+    <div class="nav-mark"><img src="bulut-mark.png" alt="" class="nav-mascot">Halil<span>.</span>Helvaci</div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     <nav class="links" id="navLinks">
       <a href="#about">About</a>
@@ -290,15 +370,30 @@
       <a href="https://scholar.google.com/citations?user=ns2d-ZgAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
     </div>
 
-    <div class="segbar" aria-hidden="true">
-      <div class="seg" style="width:8%;background:var(--seg-slate);animation-delay:0s"></div>
-      <div class="seg" style="width:30%;background:var(--seg-amber);animation-delay:.05s"></div>
-      <div class="seg" style="width:47%;background:var(--seg-teal);animation-delay:.1s"></div>
-      <div class="seg" style="width:15%;background:var(--seg-rose);animation-delay:.15s"></div>
-    </div>
+    <nav class="segbar" aria-label="Career timeline, oldest to most recent, jump to an entry">
+      <a href="#exp-ta" class="seg-link" style="width:32%;background:var(--seg-slate);opacity:.72;animation-delay:0s">
+        <span class="seg-tooltip"><span class="tt-role">Graduate Teaching Assistant</span><span class="tt-dates">University of Kentucky · Jan 2020–Jun 2022</span></span>
+      </a>
+      <a href="#exp-grad-research" class="seg-link" style="width:56%;background:var(--seg-amber);opacity:.82;animation-delay:.04s">
+        <span class="seg-tooltip"><span class="tt-role">Graduate Research Assistant</span><span class="tt-dates">University of Kentucky · Jun 2022–Jul 2026</span></span>
+      </a>
+      <a href="#exp-kla-2023" class="seg-link" style="width:3%;background:var(--seg-rose);opacity:.88;animation-delay:.08s">
+        <span class="seg-tooltip"><span class="tt-role">Algorithm Engineer Intern</span><span class="tt-dates">KLA · May 2023–Aug 2023</span></span>
+      </a>
+      <a href="#exp-kla-2024" class="seg-link" style="width:3%;background:var(--seg-rose);opacity:.94;animation-delay:.12s">
+        <span class="seg-tooltip"><span class="tt-role">Algorithm Engineer Intern</span><span class="tt-dates">KLA · May 2024–Aug 2024</span></span>
+      </a>
+      <a href="#exp-amazon-intern" class="seg-link" style="width:3%;background:var(--seg-teal);opacity:.98;animation-delay:.16s">
+        <span class="seg-tooltip"><span class="tt-role">Applied Scientist Intern</span><span class="tt-dates">Amazon · Jul 2025–Oct 2025</span></span>
+      </a>
+      <a href="#exp-amazon-as" class="seg-link" style="width:3%;background:var(--seg-teal);opacity:1;animation-delay:.2s">
+        <span class="seg-tooltip"><span class="tt-role">Applied Scientist</span><span class="tt-dates">Amazon · Jul 2026–Present</span></span>
+      </a>
+    </nav>
     <div class="segbar-caption">
-      <span>2017: B.S. Electrical Engineering</span>
-      <span>2026: Applied Scientist, Amazon</span>
+      <span class="cap-start">2020</span>
+      <span class="cap-direction" aria-hidden="true">Earlier <span class="seg-arrow">→</span> More recent</span>
+      <span class="cap-now" aria-hidden="true"><span class="now-dot"></span>Now</span>
     </div>
   </section>
 
@@ -336,7 +431,7 @@
     <h2 class="section-title">Experience</h2>
     <div class="timeline">
 
-      <div class="tl-item" style="--dot:var(--seg-teal)">
+      <div id="exp-amazon-as" class="tl-item" style="--dot:var(--seg-teal)">
         <div class="tl-row">
           <span class="tl-org">Amazon</span>
           <span class="tl-dates">Jul 2026–Present</span>
@@ -348,7 +443,7 @@
         </ul>
       </div>
 
-      <div class="tl-item" style="--dot:var(--seg-amber)">
+      <div id="exp-grad-research" class="tl-item" style="--dot:var(--seg-amber)">
         <div class="tl-row">
           <span class="tl-org">University of Kentucky</span>
           <span class="tl-dates">Jun 2022–Jul 2026</span>
@@ -361,7 +456,7 @@
         </ul>
       </div>
 
-      <div class="tl-item" style="--dot:var(--seg-teal)">
+      <div id="exp-amazon-intern" class="tl-item" style="--dot:var(--seg-teal)">
         <div class="tl-row">
           <span class="tl-org">Amazon</span>
           <span class="tl-dates">Jul 2025–Oct 2025</span>
@@ -374,7 +469,7 @@
         </ul>
       </div>
 
-      <div class="tl-item" style="--dot:var(--seg-rose)">
+      <div id="exp-kla-2024" class="tl-item" style="--dot:var(--seg-rose)">
         <div class="tl-row">
           <span class="tl-org">KLA</span>
           <span class="tl-dates">May 2024–Aug 2024</span>
@@ -386,7 +481,7 @@
         </ul>
       </div>
 
-      <div class="tl-item" style="--dot:var(--seg-rose)">
+      <div id="exp-kla-2023" class="tl-item" style="--dot:var(--seg-rose)">
         <div class="tl-row">
           <span class="tl-org">KLA</span>
           <span class="tl-dates">May 2023–Aug 2023</span>
@@ -398,7 +493,7 @@
         </ul>
       </div>
 
-      <div class="tl-item" style="--dot:var(--seg-slate)">
+      <div id="exp-ta" class="tl-item" style="--dot:var(--seg-slate)">
         <div class="tl-row">
           <span class="tl-org">University of Kentucky</span>
           <span class="tl-dates">Jan 2020–Jun 2022</span>
@@ -526,7 +621,7 @@
     <a href="https://www.linkedin.com/in/halilhelvaci/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://scholar.google.com/citations?user=ns2d-ZgAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
   </div>
-  <p class="foot-note">© 2026 Halil I. Helvaci.</p>
+  <p class="foot-note"><img src="bulut-mark.png" alt="" class="foot-paw">© 2026 Halil I. Helvaci. Built alongside Bulut.</p>
 </footer>
 
 <script>
