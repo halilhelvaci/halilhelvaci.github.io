@@ -225,6 +225,7 @@
 
   /* SECTIONS */
   section{padding:56px 0;border-top:1px solid var(--line);}
+
   section.hero{border-top:none;}
   h2.section-title{
     font-family:var(--serif);
@@ -285,6 +286,13 @@
   .research-item{padding:22px 0;border-top:1px solid var(--line);}
   .research-item:first-child{border-top:none;padding-top:0;}
   .research-item h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0 0 8px;color:var(--text);}
+  .research-item h3 a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line);}
+  .research-item h3 a:hover{color:var(--accent);border-color:var(--accent);}
+  .research-figure{
+    width:100%;display:block;border-radius:8px;border:1px solid var(--line);
+    margin:14px 0 6px;background:#fff;
+  }
+  .research-figure-cap{color:var(--text-mute);font-size:0.8rem;margin:0 0 12px;}
   .research-item p{margin:0;color:var(--text-dim);font-size:0.95rem;}
   .research-tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
   .research-tags span{font-size:0.76rem;color:var(--text-mute);border:1px solid var(--line);
@@ -522,8 +530,10 @@
       </div>
 
       <div class="research-item">
-        <h3>B-ACT: Boundary-Centric Active Learning</h3>
+        <h3>Boundary-Centric Clip-Budgeted Active Learning for Temporal Action Segmentation</h3>
         <p>An uncertainty-guided active learning framework targeting ambiguous action transitions, cutting annotation costs by 99.5% on temporal segmentation benchmarks.</p>
+        <img class="research-figure" src="bact-gtea-result.jpg" alt="B-ACT prediction detail on a GTEA cooking video, showing ground truth vs. predicted action segments, per-frame error, and boundary score with 81.5% frame accuracy">
+        <p class="research-figure-cap">Predicted vs. ground-truth action segments on a GTEA cooking sequence, 81.5% frame accuracy.</p>
         <div class="research-tags"><span>Active Learning</span><span>Annotation Efficiency</span></div>
       </div>
 
@@ -551,7 +561,7 @@
       <li class="pub-item">
         <span class="pub-num">02</span>
         <span class="pub-title"><span class="pub-you">Halil I. Helvaci</span>, S-C. Cheung</span>
-        <div class="pub-meta">"Boundary-Centric Active Learning for Temporal Action Segmentation." <span class="pub-venue">arXiv preprint arXiv:2604.15173, 2026.</span>
+        <div class="pub-meta">"Boundary-Centric Clip-Budgeted Active Learning for Temporal Action Segmentation." <span class="pub-venue">arXiv preprint arXiv:2604.15173, 2026.</span>
           <a class="pub-link" href="https://arxiv.org/abs/2604.15173" target="_blank" rel="noopener">View →</a>
         </div>
       </li>
